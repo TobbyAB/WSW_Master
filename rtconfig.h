@@ -91,6 +91,7 @@
 #define RT_USING_I2C
 #define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
+#define RT_USING_WDT
 
 /* Using USB */
 
@@ -203,6 +204,18 @@
 /* Micrium: Micrium software products porting for RT-Thread */
 
 /* end of Micrium: Micrium software products porting for RT-Thread */
+#define PKG_USING_SYSWATCH
+#define SYSWATCH_EXCEPT_RESOLVE_MODE_0
+#define SYSWATCH_EXCEPT_RESOLVE_MODE 0
+#define SYSWATCH_EXCEPT_TIMEOUT 60
+#define SYSWATCH_EXCEPT_CONFIRM_TMO 15
+#define SYSWATCH_EXCEPT_RESUME_DLY 15
+#define SYSWATCH_THREAD_PRIO 0
+#define SYSWATCH_THREAD_STK_SIZE 512
+#define SYSWATCH_THREAD_NAME "syswatch"
+#define SYSWATCH_WDT_NAME "wdt"
+#define SYSWATCH_WDT_TIMEOUT 5
+#define PKG_USING_SYSWATCH_LATEST_VERSION
 /* end of system packages */
 
 /* peripheral libraries and drivers */
@@ -222,7 +235,7 @@
 #define PKG_USING_AGILE_LED
 #define PKG_AGILE_LED_USING_THREAD_AUTO_INIT
 #define PKG_AGILE_LED_THREAD_STACK_SIZE 1024
-#define PKG_AGILE_LED_THREAD_PRIORITY 15
+#define PKG_AGILE_LED_THREAD_PRIORITY 14
 #define PKG_USING_AGILE_LED_V111
 #define PKG_AGILE_LED_VER_NUM 0x10101
 /* end of peripheral libraries and drivers */
