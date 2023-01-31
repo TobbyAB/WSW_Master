@@ -21,6 +21,8 @@
 
 rt_thread_t Switch_thread = RT_NULL;
 uint8_t SW1_Status = 0, SW2_Status = 0;
+uint8_t SW1_Flag = 0, SW2_Flag = 0;
+
 
 uint8_t SW_Lost;
 extern enum Device_Status Now_Status;
@@ -78,18 +80,22 @@ void Switch_work(uint8_t SW1_Level,uint8_t SW2_Level)
     if (SW1_Level == 0)
     {
         SW1_open();
+        SW1_Flag = 1;
     }
     else
     {
         SW1_close();
+        SW1_Flag = 0;
     }
     if (SW2_Level == 0)
     {
         SW2_open();
+        SW2_Flag = 1;
     }
     else
     {
         SW2_close();
+        SW2_Flag = 0;
     }
 }
 

@@ -42,6 +42,7 @@ uint32_t remain_time;
 extern enum Device_Status Now_Status;
 extern uint32_t Target_ID;
 extern uint8_t SW1_Status, SW2_Status;
+extern uint8_t SW1_Flag, SW2_Flag;
 
 void heart_single(void)
 {
@@ -86,7 +87,25 @@ void rf_offline(rf_info *temp)
 void heart_request(void)
 {
     info_433.received = 0;
-    rf_433_Urgent_Enqueue(Target_ID, 0, 0);
+    //rf_433_Urgent_Enqueue(Target_ID, 0, 0);
+    LOG_D("Now SW1_Flag = %d; SW2_Flag = %d",SW1_Flag,SW2_Flag);
+
+    if (SW1_Flag == 0 && SW2_Flag == 0)
+    {
+        rf_433_Urgent_Enqueue(Target_ID, 0, 0);
+    }
+    else if (SW1_Flag == 1 && SW2_Flag == 0)
+    {
+        rf_433_Urgent_Enqueue(Target_ID, 0, 1);
+    }
+    else if (SW1_Flag == 0 && SW2_Flag == 1)
+    {
+        rf_433_Urgent_Enqueue(Target_ID, 0, 2);
+    }
+    else if (SW1_Flag == 1 && SW2_Flag == 1)
+    {
+        rf_433_Urgent_Enqueue(Target_ID, 0, 3);
+    }
 }
 void connect_timer_callback(void *parameter)
 {
@@ -259,10 +278,10 @@ void heart_init(void)
     heart_t = rt_thread_create("heart", heart_callback, RT_NULL, 2048, 7, 10);
     connect_sem = rt_sem_create("connect_sem", 0, RT_IPC_FLAG_PRIO);
     connect_timer = rt_timer_create("connect", connect_timer_callback, RT_NULL, 5000,
-            RT_TIMER_FLAG_SOFT_TIMER | RT_TIMER_FLAG_PERIODIC);
+    RT_TIMER_FLAG_SOFT_TIMER | RT_TIMER_FLAG_PERIODIC);
     heart_sem = rt_sem_create("heart_sem", 0, RT_IPC_FLAG_PRIO);
     heart_timer = rt_timer_create("heart", heart_timer_callback, RT_NULL, 1000,
-            RT_TIMER_FLAG_SOFT_TIMER | RT_TIMER_FLAG_ONE_SHOT);
+    RT_TIMER_FLAG_SOFT_TIMER | RT_TIMER_FLAG_ONE_SHOT);
     button_sem = rt_sem_create("button_sem", 0, RT_IPC_FLAG_PRIO);
     if (heart_t != RT_NULL)
     {
