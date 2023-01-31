@@ -87,8 +87,6 @@ void rf_offline(rf_info *temp)
 void heart_request(void)
 {
     info_433.received = 0;
-    //rf_433_Urgent_Enqueue(Target_ID, 0, 0);
-    LOG_D("Now SW1_Flag = %d; SW2_Flag = %d",SW1_Flag,SW2_Flag);
 
     if (SW1_Flag == 0 && SW2_Flag == 0)
     {
