@@ -47,6 +47,7 @@
 #define LORA_PREAMBLE_LENGTH                        8         // Same for Tx and Rx
 #define LORA_SYMBOL_TIMEOUT                         0         // Symbols
 #define LORA_FIX_LENGTH_PAYLOAD_ON_DISABLE          false
+#define LORA_FIX_LENGTH_PAYLOAD_ON_ENABLE           true
 #define LORA_IQ_INVERSION_ON_DISABLE                false
 
 void RF_Init(void);
